@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './assets/styles/index.css';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MainPage } from './screens/mainPage';
+import { Podcast } from './screens/podcast';
+import { Episode } from './screens/episode';
+import { Header } from './components/header';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Header />
+      <Routes>
+        <Route path="/" Component={MainPage} />
+        <Route path="/podcast/:podcastId" Component={Podcast} />
+        <Route path="/podcast/:podcastId/episode/:episodeId" Component={Episode} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
