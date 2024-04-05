@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { finishLoadingPodcasts, setPodcastsList, startLoadingPodcasts } from "../reducers/actions";
-import { trimPodcastList } from "../utils/fetchPodcastsList";
+import { trimPodcastList } from "../utils";
 
 
 export const MainPage = () => {
@@ -26,6 +26,7 @@ export const MainPage = () => {
           }).finally(() => dispatch(finishLoadingPodcasts())))
         .catch((error) => {
           console.error('Something went wrong retrieving podcasts list', error)
+          dispatch(finishLoadingPodcasts())
         })
     }
   }, [])
@@ -35,7 +36,7 @@ export const MainPage = () => {
   }, [podcasts])
 
   useEffect(() => {
-    if(searchbarInput && searchbarInput !== '') {
+    if (searchbarInput && searchbarInput !== '') {
       const searchTerms = searchbarInput.toLowerCase().trim()
       const newPodcastsToShow = podcasts.filter(podcast => podcast.name.toLowerCase().includes(searchTerms) || podcast.author.toLowerCase().includes(searchTerms))
       setPodcastsToShow(newPodcastsToShow)
@@ -52,10 +53,10 @@ export const MainPage = () => {
   return (<>
     <div className="searchbar">
       <p>{podcastsToShow.length}</p>
-      <input value={searchbarInput} onChange={e => setSearchbarInput(e.target.value)} placeholder="Filter podcasts..."/>
+      <input value={searchbarInput} onChange={e => setSearchbarInput(e.target.value)} placeholder="Filter podcasts..." />
     </div>
     <div className="podcast-list">
-      {podcastsToShow.map(podcast => <div className="podcast-item" onClick={() => { handleClick(podcast.id) }}>
+      {podcastsToShow.map(podcast => <div className="podcast-item shadowed-surface" onClick={() => { handleClick(podcast.id) }}>
         <img src={podcast.image} />
         <h2>{podcast.name}</h2>
         <p>Author: {podcast.author}</p>

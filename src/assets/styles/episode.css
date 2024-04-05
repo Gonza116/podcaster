@@ -1,0 +1,17 @@
+.podcast-episode {
+    padding: 16px;
+}
+
+.podcast-episode audio {
+    margin-top: 16px;
+    width: 100%;
+}
+
+.podcast-episode h2 {
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.podcast-episode div {
+    font-style: italic;
+}

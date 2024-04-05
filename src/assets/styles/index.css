@@ -1,5 +1,7 @@
 @import url("mainPage.css");
 @import url("header.css");
+@import url("details.css");
+@import url("episode.css");
 
 body {
   margin: 0;
@@ -10,7 +12,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   --main-blue: #3366ff;
-  --light-gray: #A9A9A9;
+  --light-gray: #a9a9a9;
+  --lighter-gray: #E9E9E9;
+
+  --shadow: 0px 8px 8px -4px rgba(169, 169, 169, 1);
 }
 
 code {
@@ -22,4 +27,11 @@ code {
   max-width: 1440px;
   margin: 0 auto;
   padding: 16px;
+}
+
+.shadowed-surface {
+  -webkit-box-shadow: var(--shadow);
+  -moz-box-shadow: var(--shadow);
+  box-shadow: var(--shadow);
+  border-radius: 4px;
 }

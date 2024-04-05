@@ -3,8 +3,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 16px;
 }
 
 .header img {
     height: 72px;
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.header a:visited {
+    color: black;
+}
+
+.header a:hover {
+    color: var(--main-blue);
+    transition: color 500ms ease-in-out;
 }
