@@ -10,6 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   --main-blue: #3366ff;
+  --light-gray: #A9A9A9;
 }
 
 code {

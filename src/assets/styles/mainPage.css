@@ -45,3 +45,28 @@ p {
   height: 100px;
   margin-top: -50px;
 }
+
+.searchbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  padding-right: 0;
+}
+
+.searchbar p {
+  background-color: var(--main-blue);
+  border-radius: 24px;
+  padding: 4px 8px;
+  text-align: center;
+  line-height: 16px;
+  font-weight: 700;
+  color: white
+}
+
+.searchbar input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--light-gray);
+}
