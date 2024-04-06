@@ -21,7 +21,6 @@ export const MainPage = () => {
       dispatch(startLoadingPodcasts())
       getPodcastsList()
         .then(data => {
-          console.log('data => ', data)
           const podcastsList = trimPodcastList(data.feed.entry)
           dispatch(setPodcastsList(podcastsList))
         })
