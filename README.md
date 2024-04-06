@@ -53,7 +53,7 @@ Simply open a terminal in the directory where you cloned this repo and run:
 yarn prod
 ```
 
-Your default browser should open but, if it doesn't, simply navigate to [localhost:5000](http://localhost:5000/). This script assumes that you have yarn installed and checks if you have serve installed. If you don't, it will install it for you, since it's needed to run a local served from which the production build of this project will be served.
+Your default browser should open but, if it doesn't, simply navigate to [localhost:5000](http://localhost:5000/). This script assumes that you have yarn installed and checks if you have serve installed. If you don't, it will install it for you, since it's needed to run a local server from which the production build of this project will be served.
 
 If you don't have yarn installed, or you don't want to install it, you can run this production mode manually. To do so, we first need to build the project:
 
