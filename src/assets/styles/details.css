@@ -67,6 +67,7 @@
 .podcast-episodes-table table {
     border-spacing: 0;
     text-align: left;
+    width: 100%;
 }
 
 .podcast-episodes-table th {

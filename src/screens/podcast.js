@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { EpisodesTable } from "../components/episodesTable";
 import { PodcastLateralDetails } from "../components/podcastLateralDetails";
 import { finishLoadingDetails, setPodcastsDetails, startLoadingDetails } from "../reducers/actions";
-import { getFormatedDate, getFormatedDuration } from "../utils";
+import { getPodcastDetails } from "../utils";
 
 
 export const Podcast = () => {
-  const { podcastId } = useParams()
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const { podcastId } = useParams()
 
   const { podcastsDetails } = useSelector(store => store.podcastsDetails)
   const { podcasts } = useSelector(store => store.podcastsList)
@@ -21,18 +22,19 @@ export const Podcast = () => {
   useEffect(() => {
     if (!currentPodcastDetails || (new Date().getTime() - currentPodcastDetails.lastUpdated > 864000000)) {
       dispatch(startLoadingDetails())
-      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=100`)}`)
-        .then(response => response.json()
-          .then(data => {
-            const contents = JSON.parse(data.contents)
-            dispatch(setPodcastsDetails({ ...podcastsDetails, [podcastId]: { ...contents.results[0], episodes: [...contents.results.slice(1)], lastUpdated: new Date().getTime() } }))
-          }).finally(() => dispatch(finishLoadingDetails())))
+      getPodcastDetails(podcastId)
+        .then(data => {
+          const contents = JSON.parse(data.contents)
+          dispatch(setPodcastsDetails({ ...podcastsDetails, [podcastId]: { ...contents.results[0], episodes: [...contents.results.slice(1)], lastUpdated: new Date().getTime() } }))
+        }).finally(() => dispatch(finishLoadingDetails()))
         .catch((error) => {
-          console.error('Something went wrong retrieving podcasts list', error)
+          console.error('Something went wrong retrieving podcast details', error)
           dispatch(finishLoadingDetails())
         })
     }
   }, [])
+
+  const handleClick = (episodeId) => navigate(`/podcast/${podcastId}/episode/${episodeId}`)
 
   if (currentPodcastDetails) {
     return (
@@ -46,22 +48,7 @@ export const Podcast = () => {
           </div>
 
           <div className="podcast-episodes-table shadowed-surface">
-            <table>
-              <thead>
-                <tr>
-                  <th id="title">Title</th>
-                  <th id="date">Date</th>
-                  <th id="duration">Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentPodcastDetails.episodes.map(episode => <tr key={episode.trackId} onClick={() => navigate(`/podcast/${podcastId}/episode/${episode.trackId}`)}>
-                  <td id="title">{episode.trackName}</td>
-                  <td id="date">{getFormatedDate(new Date(episode.releaseDate))}</td>
-                  <td id="duration">{getFormatedDuration(episode.trackTimeMillis)}</td>
-                </tr>)}
-              </tbody>
-            </table>
+            <EpisodesTable episodes={currentPodcastDetails.episodes} onClick={handleClick} />
 
           </div>
         </div>

@@ -17,7 +17,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "prod": "yarn build && (serve -v || yarn global add serve) && serve -s build",
+    "prod": "yarn build && (serve -v || yarn global add serve) && serve -l 5000 -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

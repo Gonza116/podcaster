@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { finishLoadingPodcasts, setPodcastsList, startLoadingPodcasts } from "../reducers/actions";
-import { trimPodcastList } from "../utils";
+import { finishLoadingDetails, finishLoadingPodcasts, setPodcastsList, startLoadingPodcasts } from "../reducers/actions";
+import { getPodcastsList, trimPodcastList } from "../utils";
 
 
 export const MainPage = () => {
@@ -16,18 +16,16 @@ export const MainPage = () => {
   const [podcastsToShow, setPodcastsToShow] = useState(podcasts)
 
   useEffect(() => {
+    dispatch(finishLoadingDetails())
     if (new Date().getTime() - lastUpdated > 864000000) {
       dispatch(startLoadingPodcasts())
-      fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')
-        .then(response => response.json()
-          .then(data => {
-            const podcastsList = trimPodcastList(data.feed.entry)
-            dispatch(setPodcastsList(podcastsList))
-          }).finally(() => dispatch(finishLoadingPodcasts())))
-        .catch((error) => {
-          console.error('Something went wrong retrieving podcasts list', error)
-          dispatch(finishLoadingPodcasts())
+      getPodcastsList()
+        .then(data => {
+          console.log('data => ', data)
+          const podcastsList = trimPodcastList(data.feed.entry)
+          dispatch(setPodcastsList(podcastsList))
         })
+        .finally(() => dispatch(finishLoadingPodcasts()))
     }
   }, [])
 
@@ -56,13 +54,12 @@ export const MainPage = () => {
       <input value={searchbarInput} onChange={e => setSearchbarInput(e.target.value)} placeholder="Filter podcasts..." />
     </div>
     <div className="podcast-list">
-      {podcastsToShow.map(podcast => <div className="podcast-item shadowed-surface" onClick={() => { handleClick(podcast.id) }}>
+      {podcastsToShow.map(podcast => <div key={podcast.id} className="podcast-item shadowed-surface" onClick={() => { handleClick(podcast.id) }}>
         <img src={podcast.image} />
         <h2>{podcast.name}</h2>
         <p>Author: {podcast.author}</p>
       </div>)}
     </div>
-
   </>
   );
 }
