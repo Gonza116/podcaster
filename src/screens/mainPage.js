@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { finishLoadingDetails, finishLoadingPodcasts, setPodcastsList, startLoadingPodcasts } from "../reducers/actions";
-import { getPodcastsList, trimPodcastList } from "../utils";
+import { getPodcastsList, MAX_CACHE_AGE, trimPodcastList } from "../utils";
 
 
 export const MainPage = () => {
@@ -17,7 +17,7 @@ export const MainPage = () => {
 
   useEffect(() => {
     dispatch(finishLoadingDetails())
-    if (new Date().getTime() - lastUpdated > 864000000) {
+    if (new Date().getTime() - lastUpdated > MAX_CACHE_AGE) {
       dispatch(startLoadingPodcasts())
       getPodcastsList()
         .then(data => {

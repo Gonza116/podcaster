@@ -13,23 +13,22 @@ export const Episode = () => {
   const currentPodcastDetails = podcastsDetails[podcastId]
   const currentEpisodde = currentPodcastDetails?.episodes?.find(episode => episode.trackId === Number(episodeId))
 
-  if (currentPodcastDetails) {
-    return (
-      <div className="podcast-details">
+  if (!currentPodcastDetails) return null;
 
-        <PodcastLateralDetails currentPodcast={currentPodcast} currentPodcastDetails={currentPodcastDetails} />
+  return (
+    <div className="podcast-details">
 
-        <div className="podcast-episode shadowed-surface">
-          <h2>{currentEpisodde.trackName}</h2>
-          <div dangerouslySetInnerHTML={{ __html: currentEpisodde.description }} />
-          <audio controls>
-            <source src={currentEpisodde.episodeUrl} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-        </div>
+      <PodcastLateralDetails currentPodcast={currentPodcast} currentPodcastDetails={currentPodcastDetails} />
 
+      <div className="podcast-episode shadowed-surface">
+        <h2>{currentEpisodde.trackName}</h2>
+        <div dangerouslySetInnerHTML={{ __html: currentEpisodde.description }} />
+        <audio controls>
+          <source src={currentEpisodde.episodeUrl} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
       </div>
-    );
-  }
-}
 
+    </div>
+  );
+}

@@ -86,7 +86,7 @@
     background-color: var(--lighter-gray);
 }
 
-.podcast-episodes-table tr:hover {
+.podcast-episodes-table tbody tr:hover {
     cursor: pointer;
     background-color: var(--main-blue);
     color: white;
