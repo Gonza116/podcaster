@@ -105,3 +105,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.paginator {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.paginator .disabled {
+  opacity: 0;
+  pointer-events: none;
+}

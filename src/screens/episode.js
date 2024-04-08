@@ -11,7 +11,7 @@ export const Episode = () => {
 
   const currentPodcast = podcasts.find(podcast => podcast.id === podcastId)
   const currentPodcastDetails = podcastsDetails[podcastId]
-  const currentEpisodde = currentPodcastDetails?.episodes?.find(episode => episode.trackId === Number(episodeId))
+  const currentEpisode = currentPodcastDetails?.episodes?.find(episode => episode.id == episodeId)
 
   if (!currentPodcastDetails) return null;
 
@@ -21,10 +21,10 @@ export const Episode = () => {
       <PodcastLateralDetails currentPodcast={currentPodcast} currentPodcastDetails={currentPodcastDetails} />
 
       <div className="podcast-episode shadowed-surface">
-        <h2>{currentEpisodde.trackName}</h2>
-        <div dangerouslySetInnerHTML={{ __html: currentEpisodde.description }} />
+        <h2>{currentEpisode.trackName}</h2>
+        <div dangerouslySetInnerHTML={{ __html: currentEpisode.description }} />
         <audio controls>
-          <source src={currentEpisodde.episodeUrl} type="audio/mpeg" />
+          <source src={currentEpisode.audio.url} type={currentEpisode.audio.type} />
           Your browser does not support the audio element.
         </audio>
       </div>

@@ -5,6 +5,7 @@ import { EpisodesTable } from "../components/episodesTable";
 import { PodcastLateralDetails } from "../components/podcastLateralDetails";
 import { finishLoadingDetails, setPodcastsDetails, startLoadingDetails } from "../reducers/actions";
 import { getPodcastDetails, MAX_CACHE_AGE } from "../utils";
+import { getPodcastEpisodes } from "../utils/api";
 
 
 export const Podcast = () => {
@@ -25,7 +26,9 @@ export const Podcast = () => {
       getPodcastDetails(podcastId)
         .then(data => {
           const contents = JSON.parse(data.contents)
-          dispatch(setPodcastsDetails({ ...podcastsDetails, [podcastId]: { ...contents.results[0], episodes: [...contents.results.slice(1)], lastUpdated: new Date().getTime() } }))
+          getPodcastEpisodes(contents.results[0].feedUrl).then((episodesFeed) => {
+            dispatch(setPodcastsDetails({ ...podcastsDetails, [podcastId]: { ...contents.results[0], episodes: [...episodesFeed], lastUpdated: new Date().getTime() } }))
+          })
         })
         .finally(() => dispatch(finishLoadingDetails()))
     }

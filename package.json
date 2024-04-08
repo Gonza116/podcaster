@@ -7,20 +7,29 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "buffer": "^6.0.3",
+    "https-browserify": "^1.0.0",
+    "process": "^0.11.10",
     "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
+    "rss-parser": "^3.13.0",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "timers-browserify": "^2.0.12",
+    "url": "^0.11.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "react-app-rewired start",
     "prod": "yarn build && (serve -v || yarn global add serve) && serve -l 5000 -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [

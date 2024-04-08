@@ -17,10 +17,19 @@ export const getFormatedDate = (date) => {
     return Intl.DateTimeFormat(undefined, { month: '2-digit', day: '2-digit', year: 'numeric' }).format(date)
 }
 
-export const getFormatedDuration = (millis) => {
-    const minutes = millis / 1000 / 60;
-    const hours = Math.floor(minutes / 60);
-    const leftMinutes = Math.round(minutes - (hours * 60))
+export const getFormatedDuration = (seconds) => {
 
-    return `${hours}:${leftMinutes < 10 ? '0' + leftMinutes : leftMinutes}`
+    if (seconds?.includes(':')) {
+        const time = seconds.split(':');
+        const minutes = Number(time[1]);
+        const hours = Number(time[0])
+        return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
+
+    } else {
+        const minutes = seconds / 60;
+        const hours = Math.floor(minutes / 60);
+        const leftMinutes = Math.round(minutes - (hours * 60))
+
+        return `${hours}:${leftMinutes < 10 ? '0' + leftMinutes : leftMinutes}`
+    }
 }
